@@ -1,0 +1,94 @@
+{
+    "date": "2026-01-31",
+    "kpis": {
+        "date": "2026-01-31",
+        "total_peak_demand_mw": 248.0,
+        "total_available_capacity_mw": 310.0,
+        "reserve_margin_mw": 62.0,
+        "reserve_margin_percent": 25.0,
+        "total_outages": 1,
+        "unplanned_outages": 1,
+        "total_outage_duration_minutes": 56.0,
+        "estimated_losses_mwh": 658.4,
+        "losses_percent": 12.67,
+        "solar_output_mwh": 229.3,
+        "battery_output_mwh": 45.2,
+        "solar_share_percent": 4.41,
+        "battery_share_percent": 0.87,
+        "generators_out_of_service": 0
+    },
+    "trends": {
+        "dates": [
+            "2026-01-25",
+            "2026-01-26",
+            "2026-01-27",
+            "2026-01-28",
+            "2026-01-29",
+            "2026-01-30",
+            "2026-01-31"
+        ],
+        "peak_demand_mw": [
+            259.3,
+            246.6,
+            271.8,
+            248.0,
+            293.4,
+            254.2,
+            248.0
+        ],
+        "available_capacity_mw": [
+            328.5,
+            318.0,
+            345.0,
+            316.6,
+            364.1,
+            328.5,
+            310.0
+        ],
+        "number_of_outages": [
+            4,
+            1,
+            1,
+            1,
+            0,
+            3,
+            1
+        ],
+        "unplanned_outages": [
+            3,
+            1,
+            1,
+            1,
+            0,
+            3,
+            1
+        ],
+        "losses_percent": [
+            10.69,
+            9.97,
+            11.59,
+            14.32,
+            10.46,
+            11.86,
+            12.67
+        ],
+        "solar_output_mwh": [
+            227.3,
+            325.3,
+            270.2,
+            278.9,
+            320.0,
+            213.0,
+            229.3
+        ],
+        "battery_output_mwh": [
+            43.2,
+            61.6,
+            59.4,
+            89.4,
+            60.1,
+            69.5,
+            45.2
+        ]
+    }
+}

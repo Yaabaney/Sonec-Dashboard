@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SONEC Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <div class="brand-row">
+          <div class="brand-mark">S</div>
+          <div>
+            <h1>SONEC Dashboard</h1>
+            <p class="subtitle">Somali Energy Operations Overview</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div id="system-status-badge" class="status-badge status-green">System Stable</div>
+        <div class="date-box">
+          <span>Reporting Date</span>
+          <strong id="report-date">Loading...</strong>
+        </div>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="panel summary-panel">
+        <h2>Executive Summary</h2>
+        <p id="executive-summary">Loading summary...</p>
+      </div>
+
+      <div class="panel summary-panel">
+        <h2>Operations Summary</h2>
+        <p id="operations-summary">Loading summary...</p>
+      </div>
+    </section>
+
+    <section class="panel alerts-panel">
+      <div class="panel-heading">
+        <h2>System Alerts</h2>
+      </div>
+      <div id="alerts-container" class="alerts-container">
+        <p>Loading alerts...</p>
+      </div>
+    </section>
+<section class="panel map-panel">
+  <div class="section-header">
+    <h2>Somalia Energy Map</h2>
+    <p>Geographic overview of the network and key operating locations</p>
+  </div>
+
+  <div id="somaliaMap"></div>
+</section>
+    <section class="kpi-grid">
+      <div class="kpi-card" id="card-peak-demand">
+        <span class="kpi-label">Peak Demand</span>
+        <strong class="kpi-value" id="kpi-peak-demand">-</strong>
+        <span class="kpi-unit">MW</span>
+      </div>
+
+      <div class="kpi-card" id="card-available-capacity">
+        <span class="kpi-label">Available Capacity</span>
+        <strong class="kpi-value" id="kpi-available-capacity">-</strong>
+        <span class="kpi-unit">MW</span>
+      </div>
+
+      <div class="kpi-card" id="card-reserve-margin">
+        <span class="kpi-label">Reserve Margin</span>
+        <strong class="kpi-value" id="kpi-reserve-margin">-</strong>
+        <span class="kpi-unit">%</span>
+      </div>
+
+      <div class="kpi-card" id="card-total-outages">
+        <span class="kpi-label">Total Outages</span>
+        <strong class="kpi-value" id="kpi-total-outages">-</strong>
+        <span class="kpi-unit">events</span>
+      </div>
+
+      <div class="kpi-card" id="card-losses">
+        <span class="kpi-label">Losses</span>
+        <strong class="kpi-value" id="kpi-losses">-</strong>
+        <span class="kpi-unit">%</span>
+      </div>
+
+      <div class="kpi-card" id="card-generators-out">
+        <span class="kpi-label">Generators Out</span>
+        <strong class="kpi-value" id="kpi-generators-out">-</strong>
+        <span class="kpi-unit">units</span>
+      </div>
+
+      <div class="kpi-card" id="card-solar-output">
+        <span class="kpi-label">Solar Output</span>
+        <strong class="kpi-value" id="kpi-solar-output">-</strong>
+        <span class="kpi-unit">MWh</span>
+      </div>
+
+      <div class="kpi-card" id="card-battery-output">
+        <span class="kpi-label">Battery Output</span>
+        <strong class="kpi-value" id="kpi-battery-output">-</strong>
+        <span class="kpi-unit">MWh</span>
+      </div>
+    </section>
+
+    <section class="charts-grid charts-grid-top">
+      <div class="panel chart-panel">
+        <div class="panel-heading">
+          <h2>Demand vs Available Capacity</h2>
+        </div>
+        <canvas id="demandCapacityChart"></canvas>
+      </div>
+
+      <div class="panel chart-panel">
+        <div class="panel-heading">
+          <h2>Losses Trend</h2>
+        </div>
+        <canvas id="lossesChart"></canvas>
+      </div>
+    </section>
+
+    <section class="charts-grid charts-grid-bottom">
+      <div class="panel chart-panel">
+        <div class="panel-heading">
+          <h2>Outages Trend</h2>
+        </div>
+        <canvas id="outagesChart"></canvas>
+      </div>
+
+      <div class="panel chart-panel">
+        <div class="panel-heading">
+          <h2>Generation Mix</h2>
+        </div>
+        <canvas id="generationMixChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel utility-panel">
+      <div class="panel-heading utility-header">
+        <h2>Utility Performance</h2>
+        <div class="tabs" id="utility-tabs">
+          <button class="tab-button active" data-utility="All">All</button>
+          <button class="tab-button" data-utility="BECO">BECO</button>
+          <button class="tab-button" data-utility="Blue Sky">Blue Sky</button>
+          <button class="tab-button" data-utility="Mogadishu Power">Mogadishu Power</button>
+        </div>
+      </div>
+
+      <div class="utility-table-wrapper">
+        <table class="utility-table">
+          <thead>
+            <tr>
+              <th>Utility</th>
+              <th>Peak Demand (MW)</th>
+              <th>Available Capacity (MW)</th>
+              <th>Outages</th>
+              <th>Unplanned Outages</th>
+              <th>Losses (%)</th>
+              <th>Solar Output (MWh)</th>
+              <th>Battery Output (MWh)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="utility-table-body">
+            <tr>
+              <td colspan="9">Loading utility data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
